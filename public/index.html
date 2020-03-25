@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Device information</title>
-</head>
-<body>
-   Device Pixel Ratio: <script>document.write(window.devicePixelRatio);</script><br>
-   Viewport width: <script>document.write(document.documentElement.clientWidth, window.innerWidth || 0);</script><br>
-   Viewport height: <script>document.write(document.documentElement.clientHeight, window.innerHeight || 0);</script>
-</body>
+  </head>
+  <body>
+    Device Pixel Ratio:
+    <script>
+      document.write(window.devicePixelRatio);
+    </script>
+    <br />
+    Viewport width:
+    <script>
+      document.write(
+        document.documentElement.clientWidth,
+        window.innerWidth || 0,
+      );
+    </script>
+    <br />
+    Viewport height:
+    <script>
+      document.write(
+        document.documentElement.clientHeight,
+        window.innerHeight || 0,
+      );
+    </script>
+  </body>
 </html>
