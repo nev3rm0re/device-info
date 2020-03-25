@@ -14,16 +14,17 @@
     Viewport width:
     <script>
       document.write(
-        document.documentElement.clientWidth,
-        window.innerWidth || 0,
+        Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
       );
     </script>
     <br />
     Viewport height:
     <script>
       document.write(
-        document.documentElement.clientHeight,
-        window.innerHeight || 0,
+        Math.max(
+          document.documentElement.clientHeight,
+          window.innerHeight || 0,
+        ),
       );
     </script>
   </body>
