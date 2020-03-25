@@ -4,28 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Device information</title>
+    <link rel="stylesheet" src="css/styles.css" />
   </head>
   <body>
-    Device Pixel Ratio:
-    <script>
-      document.write(window.devicePixelRatio);
-    </script>
-    <br />
-    Viewport width:
-    <script>
-      document.write(
-        Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-      );
-    </script>
-    <br />
-    Viewport height:
-    <script>
-      document.write(
-        Math.max(
-          document.documentElement.clientHeight,
-          window.innerHeight || 0,
-        ),
-      );
-    </script>
+    <div id="content">
+      Device Pixel Ratio:
+      <script>
+        document.write(window.devicePixelRatio);
+      </script>
+      <br />
+      Viewport width:
+      <script>
+        document.write(
+          Math.max(
+            document.documentElement.clientWidth,
+            window.innerWidth || 0,
+          ),
+        );
+      </script>
+      <br />
+      Viewport height:
+      <script>
+        document.write(
+          Math.max(
+            document.documentElement.clientHeight,
+            window.innerHeight || 0,
+          ),
+        );
+      </script>
+    </div>
   </body>
 </html>
