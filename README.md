@@ -2,6 +2,8 @@ This project uses:
 
 - https://github.com/CookPete/react-player
 
+This is currently deployed to https://happy-mayer-ceda6a.netlify.com/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
