@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
+import ReactPlayer from 'react-player';
 import './App.css';
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
       Viewport width: {viewportWidth}<br />
       Viewport height: {viewportHeight}<br />
 
+      <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' />
     </div>
   );
 }
