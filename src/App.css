@@ -2,17 +2,45 @@
 
 .App {
   text-align: center;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: [viewport] 480px [toolbar] auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App .viewport {
+  grid-column: viewport;
+  overflow: scroll;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App .toolbar {
+  grid-column: toolbar;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+This describes how the Tool element of Toolbar is going to look like
+*/
+.toolbar .tool {
+  width: 100%;
+  flex-basis: 100% auto;
+  margin: 5px 5px;
+  padding: 10px 5px;
+  border-radius: 10px;
+  border: 1px solid rgb(68, 44, 0);
+  display: flex;
+  align-items: justify-content;
+  justify-content: space-between;
+}
+
+.toolbar .tool.column {
+  flex-direction: column;
+}
+
+.tool .label {
+  flex-basis: 50%;
+  display: inline-block;
+  text-align: left;
 }
 
 .overlay {

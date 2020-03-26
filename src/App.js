@@ -50,17 +50,18 @@ function App() {
 
   function stopWebcam(stream) {
     const tracks = stream.getTracks();
-    tracks.forEach(track => {
-      track.stop((...args) => {
-        return 1;
+    if (tracks) {
+      tracks.forEach(track => {
+        track.stop();
       });
-    });
+
+    }
     setStream(null);
   }
 
   return (
     <div className="App" id="content">
-      <div className="PlayerArea" style={{ width: 480 }}>
+      <div className="viewport PlayerArea" style={{ width: 480 }}>
         <ReactPlayer url={stream || playURL} playing={playing} width={480} />
         <div className="overlay">
           <div className="nomad">o</div>
@@ -70,16 +71,18 @@ function App() {
         </div>
       </div>
       <div className="toolbar">
-        Device Pixel Ratio: {dimensions.devicePixelRatio}<br />
-        Viewport width: {dimensions.viewportWidth}<br />
-        Viewport height: {dimensions.viewportHeight}<br />
+        <div className="tool column">
+          Device Pixel Ratio: {dimensions.devicePixelRatio}<br />
+          Viewport width: {dimensions.viewportWidth}<br />
+          Viewport height: {dimensions.viewportHeight}<br />
 
-        <button onClick={() => { setPlayURL(rickRollURL); setPlaying(true); }}>Rick roll me!</button>
-        <button onClick={async () => await switchToWebcam(setPlayURL)}>Webcam</button>
-        <button onClick={() => setPlayURL(initialURL)}>Initial video</button>
-        <button onClick={() => stopWebcam(stream)}>Stop webcam</button>
+          <button onClick={() => { setPlayURL(rickRollURL); setPlaying(true); }}>Rick roll me!</button>
+          <button onClick={async () => await switchToWebcam(setPlayURL)}>Webcam</button>
+          <button onClick={() => setPlayURL(initialURL)}>Initial video</button>
+          <button onClick={() => stopWebcam(stream)}>Stop webcam</button>
+        </div>
       </div>
-    </div >
+    </div>
   );
 }
 
