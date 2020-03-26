@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
 .App {
   text-align: center;
 }
@@ -10,6 +12,73 @@
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  width: 480px;
+  height: 360px;
+  border: 1px dotted red;
+  pointer-events: none;
+}
+
+.marqueeStrip {
+  position: relative;
+  width: 480px;
+  top: calc(100% - 2em);
+  opacity: 0.7;
+  overflow: hidden;
+  background: white;
+  color: navy;
+  font-family: Oswald;
+  font-size: 32px;
+}
+.marqueeStrip .content {
+  transform: translateX(100%);
+  display: block;
+  animation: demo1 4s ease-out infinite;
+  text-transform: uppercase;
+}
+
+.nomad {
+  position: relative;
+  animation: moveAround 4s linear infinite;
+  width: 10px;
+  height: 10px;
+  background-color: crimson;
+}
+
+@keyframes demo1 {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes moveAround {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  25% {
+    top: calc(100% - 10px);
+    left: 0;
+  }
+  50% {
+    top: calc(100% - 10px);
+    left: calc(100% - 10px);
+  }
+  75% {
+    top: 0;
+    left: calc(100% - 10px);
+  }
+  100% {
+    top: 0;
+    left: 0;
   }
 }
 

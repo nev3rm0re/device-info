@@ -41,7 +41,6 @@ function App() {
       const constraints = { audio: true, video: true };
       const webcamStream = await navigator.mediaDevices.getUserMedia(constraints);
       webcamStream.getTracks().forEach(track /*: MediaStreamTrack */ => {
-        console.log(track);
       });
       setStream(webcamStream);
       setPlaying(true);
@@ -50,10 +49,10 @@ function App() {
   }
 
   function stopWebcam(stream) {
-    stream.getTracks().forEach(track => {
-      console.log(`Shutting down ${track.kind} track`);
-      track.stop((args) => {
-        console.log('Done shutting down', args);
+    const tracks = stream.getTracks();
+    tracks.forEach(track => {
+      track.stop((...args) => {
+        return 1;
       });
     });
     setStream(null);
@@ -61,15 +60,25 @@ function App() {
 
   return (
     <div className="App" id="content">
-      Device Pixel Ratio: {dimensions.devicePixelRatio}<br />
-      Viewport width: {dimensions.viewportWidth}<br />
-      Viewport height: {dimensions.viewportHeight}<br />
+      <div className="PlayerArea" style={{ width: 480 }}>
+        <ReactPlayer url={stream || playURL} playing={playing} width={480} />
+        <div className="overlay">
+          <div className="nomad">o</div>
+          <div className="marqueeStrip">
+            <span className="content">This is marquee script</span>
+          </div>
+        </div>
+      </div>
+      <div className="toolbar">
+        Device Pixel Ratio: {dimensions.devicePixelRatio}<br />
+        Viewport width: {dimensions.viewportWidth}<br />
+        Viewport height: {dimensions.viewportHeight}<br />
 
-      <button onClick={() => { setPlayURL(rickRollURL); setPlaying(true); }}>Rick roll me!</button>
-      <button onClick={async () => await switchToWebcam(setPlayURL)}>Webcam</button>
-      <button onClick={() => setPlayURL(initialURL)}>Initial video</button>
-      <button onClick={() => stopWebcam(stream)}>Stop webcam</button>
-      <ReactPlayer url={stream || playURL} playing={playing} />
+        <button onClick={() => { setPlayURL(rickRollURL); setPlaying(true); }}>Rick roll me!</button>
+        <button onClick={async () => await switchToWebcam(setPlayURL)}>Webcam</button>
+        <button onClick={() => setPlayURL(initialURL)}>Initial video</button>
+        <button onClick={() => stopWebcam(stream)}>Stop webcam</button>
+      </div>
     </div >
   );
 }
