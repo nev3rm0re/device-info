@@ -40,17 +40,23 @@ function App() {
     try {
       const constraints = { audio: true, video: true };
       const webcamStream = await navigator.mediaDevices.getUserMedia(constraints);
+      webcamStream.getTracks().forEach(track /*: MediaStreamTrack */ => {
+        console.log(track);
+      });
       setStream(webcamStream);
-      setPlayURL(stream);
       setPlaying(true);
     } catch (err) {
     }
   }
 
-  function stopWebcam() {
+  function stopWebcam(stream) {
     stream.getTracks().forEach(track => {
-      track.stop();
+      console.log(`Shutting down ${track.kind} track`);
+      track.stop((args) => {
+        console.log('Done shutting down', args);
+      });
     });
+    setStream(null);
   }
 
   return (
@@ -62,8 +68,8 @@ function App() {
       <button onClick={() => { setPlayURL(rickRollURL); setPlaying(true); }}>Rick roll me!</button>
       <button onClick={async () => await switchToWebcam(setPlayURL)}>Webcam</button>
       <button onClick={() => setPlayURL(initialURL)}>Initial video</button>
-      <button onClick={() => stopWebcam()}>Stop webcam</button>
-      <ReactPlayer url={playURL} playing={playing} />
+      <button onClick={() => stopWebcam(stream)}>Stop webcam</button>
+      <ReactPlayer url={stream || playURL} playing={playing} />
     </div >
   );
 }
