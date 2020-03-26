@@ -2,6 +2,9 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import './App.css';
 
+const rickRollURL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+const initialURL = 'https://www.youtube.com/watch?v=ysz5S6PUM-U';
+
 function getDeviceInfo() {
   const devicePixelRatio = window.devicePixelRatio;
   const viewportWidth = Math.max(
@@ -19,6 +22,9 @@ function getDeviceInfo() {
 function App() {
   const initialState = getDeviceInfo();
   const [dimensions, setDimensions] = React.useState(initialState);
+  const [playing, setPlaying] = React.useState(false);
+  const [playURL, setPlayURL] = React.useState(initialURL);
+
   React.useEffect(() => {
     function handleViewChange() {
       const dimensions = getDeviceInfo();
@@ -29,14 +35,36 @@ function App() {
     window.addEventListener('resize', handleViewChange);
   })
 
+  const [stream, setStream] = React.useState();
+  async function switchToWebcam(setPlayURL) {
+    try {
+      const constraints = { audio: true, video: true };
+      const webcamStream = await navigator.mediaDevices.getUserMedia(constraints);
+      setStream(webcamStream);
+      setPlayURL(stream);
+      setPlaying(true);
+    } catch (err) {
+    }
+  }
+
+  function stopWebcam() {
+    stream.getTracks().forEach(track => {
+      track.stop();
+    });
+  }
+
   return (
     <div className="App" id="content">
       Device Pixel Ratio: {dimensions.devicePixelRatio}<br />
       Viewport width: {dimensions.viewportWidth}<br />
       Viewport height: {dimensions.viewportHeight}<br />
 
-      <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' />
-    </div>
+      <button onClick={() => { setPlayURL(rickRollURL); setPlaying(true); }}>Rick roll me!</button>
+      <button onClick={async () => await switchToWebcam(setPlayURL)}>Webcam</button>
+      <button onClick={() => setPlayURL(initialURL)}>Initial video</button>
+      <button onClick={() => stopWebcam()}>Stop webcam</button>
+      <ReactPlayer url={playURL} playing={playing} />
+    </div >
   );
 }
 
