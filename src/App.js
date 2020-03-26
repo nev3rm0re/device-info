@@ -48,6 +48,13 @@ function App() {
     }
   }
 
+  function playVideo(url) {
+    if (stream) {
+      stopWebcam(stream);
+    }
+    setPlayURL(url);
+  }
+
   function stopWebcam(stream) {
     const tracks = stream.getTracks();
     if (tracks) {
@@ -76,9 +83,9 @@ function App() {
           Viewport width: {dimensions.viewportWidth}<br />
           Viewport height: {dimensions.viewportHeight}<br />
 
-          <button onClick={() => { setPlayURL(rickRollURL); setPlaying(true); }}>Rick roll me!</button>
+          <button onClick={() => { playVideo(rickRollURL); setPlaying(true); }}>Rick roll me!</button>
           <button onClick={async () => await switchToWebcam(setPlayURL)}>Webcam</button>
-          <button onClick={() => setPlayURL(initialURL)}>Initial video</button>
+          <button onClick={() => { playVideo(initialURL) }}>Initial video</button>
           <button onClick={() => stopWebcam(stream)}>Stop webcam</button>
         </div>
       </div>
