@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 import './App.css';
+import Marquee from './Marquee';
 
 const rickRollURL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 const initialURL = 'https://www.youtube.com/watch?v=ysz5S6PUM-U';
@@ -25,7 +26,7 @@ function App() {
   const [playing, setPlaying] = React.useState(false);
   const [playURL, setPlayURL] = React.useState(initialURL);
 
-  React.useEffect(() => {
+  React.useEffect((...args) => {
     function handleViewChange() {
       const dimensions = getDeviceInfo();
       setDimensions(dimensions);
@@ -33,6 +34,11 @@ function App() {
 
     window.addEventListener('orientationchange', handleViewChange);
     window.addEventListener('resize', handleViewChange);
+
+    return _ => {
+      window.removeEventListener('orientationchange', handleViewChange);
+      window.removeEventListener('resize', handleViewChange);
+    }
   })
 
   const [stream, setStream] = React.useState();
@@ -56,7 +62,7 @@ function App() {
   }
 
   function stopWebcam(stream) {
-    const tracks = stream.getTracks();
+    const tracks = stream && stream.getTracks();
     if (tracks) {
       tracks.forEach(track => {
         track.stop();
@@ -72,9 +78,7 @@ function App() {
         <ReactPlayer url={stream || playURL} playing={playing} width={480} />
         <div className="overlay">
           <div className="nomad">o</div>
-          <div className="marqueeStrip">
-            <span className="content">This is marquee script</span>
-          </div>
+          <Marquee content={"This is marquee script"} />
         </div>
       </div>
       <div className="toolbar">
